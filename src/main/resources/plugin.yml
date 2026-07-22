@@ -1,0 +1,7 @@
+name: OreNotifications
+version: '${version}'
+
+main: me.plugins.oreNotifications.OreNotifications
+api-version: '26.1'
+
+authors: [ Shark ]
