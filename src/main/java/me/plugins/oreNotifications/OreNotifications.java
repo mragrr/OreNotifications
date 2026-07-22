@@ -12,7 +12,7 @@ public final class OreNotifications extends JavaPlugin {
         // TODO 1.2 Реализация команд топа игроков по блокам
         // TODO 1.3 Реализация возможности добавления Scoreboard с топом
         // TODO 1.3 Персональные (каждый + в месте) и глобальные сообщения (изменение топ-1) о изменении положения в топе
-        // TODO 1.4 Привелегии для топ игроков
+        // TODO 1.4 Привелегии для топ игроков.
         Bukkit.getPluginManager().registerEvents(new DefaultEvent(plugin), this);
     }
 
