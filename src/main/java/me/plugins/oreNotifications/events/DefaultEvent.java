@@ -28,12 +28,13 @@ public class DefaultEvent implements Listener {
         Block block = event.getBlock();
         Material material = block.getBlockData().getMaterial();
         String materialName = material.name();
-        // 1.1 Реализовать добавление отслеживаемых блоков и их lang-индивидуальностей в конфиге
+        // TODO 1.1 Реализовать добавление отслеживаемых блоков и их lang-индивидуальностей в конфиге
+        // TODO 1.1 Защита от шёлкового касания
         if (materialName.equals("DIAMOND_ORE") || materialName.equals("DEEPSLATE_DIAMOND_ORE")) {
             String playerName = event.getPlayer().getName();
             int count = editConfig(playerName, "diamond");
-            // 1.1 Реализовать написание только какого то по счёту блока
-            // 1.2 Реализовать написание только последнего добытого за какой-то тайм блока
+            // TODO 1.1 Реализовать написание только какого то по счёту блока
+            // TODO 1.2 Реализовать написание только последнего добытого за какой-то тайм блока
             Bukkit.broadcastMessage("Игрок " + playerName + " сломал алмазную руду. Счётчик руд: " + count);
         }
         if (materialName.equals("ANCIENT_DEBRIS")) {
