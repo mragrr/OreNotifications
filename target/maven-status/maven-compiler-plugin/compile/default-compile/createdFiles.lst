@@ -1,2 +1,3 @@
-me\plugins\oreNotifications\events\DefaultEvent.class
+me\plugins\oreNotifications\events\EditBlock.class
 me\plugins\oreNotifications\OreNotifications.class
+me\plugins\oreNotifications\config\DefaultConfig.class
