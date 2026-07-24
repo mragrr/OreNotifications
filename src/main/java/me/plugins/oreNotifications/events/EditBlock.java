@@ -11,13 +11,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
-public class DefaultEvent implements Listener {
+public class EditBlock implements Listener {
     // TODO Защита от шёлкового касания
     // TODO Реализовать написание только какого-то по счёту блока
     // TODO Реализовать написание только последнего добытого за какой-то тайм блока
     private JavaPlugin plugin;
 
-    public DefaultEvent(JavaPlugin p) {
+    public EditBlock(JavaPlugin p) {
         plugin = p;
     }
 
