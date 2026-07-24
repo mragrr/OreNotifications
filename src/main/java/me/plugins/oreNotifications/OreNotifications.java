@@ -21,21 +21,51 @@ public final class OreNotifications extends JavaPlugin {
         // TODO Персональные (каждый + в месте) и глобальные сообщения (изменение топ-1) о изменении положения в топе
         // TODO Привелегии для топ игроков.
 
+        // Настройка отслеживания изменения блоков сломанных при помощи шёлкового касания
+        config.addSetting(
+                "survival_only",
+                true,
+                List.of("Отслеживание изменения блоков сломанных только в gamemode survival")
+        );
+
         // Стандартные настройки на отслеживание алмазной руды
-        config.addSetting("blocks.diamond.message",
+        config.addSetting(
+                "blocks.diamond.enable",
+                true,
+                List.of("false чтобы отключить отслеживание данного блока.", "От данной записи нельзя отказаться, поскольку она используется как пример,", "но её можно отключить путем изменения данного параметра")
+        );
+        config.addSetting(
+                "blocks.diamond.message",
                 "{NAME} сломал алмазную руду. Счетчик руд: {COUNT}",
                 List.of("Сообщение о добыче блока руды.", "{NAME} - никнейм игрока", "{COUNT} - количество добытых блоков")
         );
-        config.addSettingList("blocks.diamond.materialNames",
+        config.addSetting(
+                "blocks.diamond.silk_touch",
+                false,
+                List.of("Отслеживание блока сломанного при помощи шёлкового касания")
+        );
+        config.addSettingList(
+                "blocks.diamond.materialNames",
                 List.of("DIAMOND_ORE", "DEEPSLATE_DIAMOND_ORE"),
                 List.of("Имена отслеживаемых блоков")
         );
 
         // Стандартные настройки на отслеживание древних осколков
-        config.addSetting("blocks.debris.message",
-                "{NAME} сломал древние осколки. Счетчик осколков: {COUNT}"
+        config.addSetting(
+                "blocks.debris.enable",
+                true,
+                List.of("false чтобы отключить отслеживание данного блока.", "От данной записи нельзя отказаться, поскольку она используется как пример,", "но её можно отключить путем изменения данного параметра")
         );
-        config.addSettingList("blocks.derbis.materialNames",
+        config.addSetting(
+                "blocks.debris.message",
+                "{NAME} сломал древний осколок. Счетчик осколков: {COUNT}"
+        );
+        config.addSetting(
+                "blocks.debris.silk_touch",
+                true
+        );
+        config.addSettingList(
+                "blocks.debris.materialNames",
                 List.of("ANCIENT_DEBRIS")
         );
 

@@ -4,18 +4,20 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
 public class EditBlock implements Listener {
-    // TODO Защита от шёлкового касания
     // TODO Реализовать написание только какого-то по счёту блока
     // TODO Реализовать написание только последнего добытого за какой-то тайм блока
-    private JavaPlugin plugin;
+    private final JavaPlugin plugin;
 
     public EditBlock(JavaPlugin p) {
         plugin = p;
@@ -60,19 +62,40 @@ public class EditBlock implements Listener {
                 return;
             }
 
+            // Проверка на ручное отключение отслеживания данного блока
+            if (!blockInfo.getBoolean("enable", true)) {
+                return;
+            }
+
             // Перебираем допустимые имена материала соответствующие данному блоку
             List<String> materialNames = blockInfo.getStringList("materialNames");
             for (String materialName : materialNames) {
-                // При сходстве с сломанным блоком
+                // При сходстве со сломанным блоком
                 if (materialName.equals(currentMaterialName)) {
-                    String playerName = event.getPlayer().getName(); // Получаем никнейм игрока, который вызвал ивент
-                    int count = editConfig(playerName, blockName); // Регистрируем сломанный блок в конфиг и записываем текущее значение счетчика
+                    Player player = event.getPlayer(); // Получаем игрока
+                    String playerName = player.getName(); // Получаем никнейм игрока, который вызвал ивент
                     String rawNotifyMessage = blockInfo.getString("message"); // Парсим из конфига сообщение о добыче блока
+                    String gameModeName = player.getGameMode().name(); // Получаем имя режима игры
+                    ItemStack item = player.getInventory().getItemInMainHand();
 
                     // Проверка на отсутствие сообщения
                     if (rawNotifyMessage == null) {
                         return;
                     }
+
+                    // Проверка на наличие шелкового касания
+                    if (item.containsEnchantment(Enchantment.SILK_TOUCH) &&
+                            !blockInfo.getBoolean("silk_touch", false)) {
+                        return;
+                    }
+
+                    // Проверка на игру в режиме выживания
+                    if (!gameModeName.equals("SURVIVAL") &&
+                            plugin.getConfig().getBoolean("survival_only", true)) {
+                        return;
+                    }
+
+                    int count = editConfig(playerName, blockName); // Регистрируем сломанный блок в конфиг и записываем текущее значение счетчика
 
                     // Преобразование сообщения
                     String notifyMessage = rawNotifyMessage
