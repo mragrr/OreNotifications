@@ -1,5 +1,6 @@
 package me.plugins.oreNotifications;
 
+import me.plugins.oreNotifications.commands.check;
 import me.plugins.oreNotifications.config.DefaultConfig;
 import me.plugins.oreNotifications.events.EditBlock;
 import org.bukkit.Bukkit;
@@ -69,6 +70,7 @@ public final class OreNotifications extends JavaPlugin {
                 List.of("ANCIENT_DEBRIS")
         );
 
+        getCommand("ore").setExecutor(new check(this));
         Bukkit.getPluginManager().registerEvents(new EditBlock(plugin), this);
     }
 

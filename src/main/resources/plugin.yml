@@ -3,5 +3,9 @@ version: '${version}'
 
 main: me.plugins.oreNotifications.OreNotifications
 api-version: '26.1'
+commands:
+  ore:
+    description: Main command for OreNotifications
+    usage: /<command>
 
 authors: [ Shark ]
