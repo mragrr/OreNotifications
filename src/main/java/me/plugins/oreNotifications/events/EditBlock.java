@@ -15,8 +15,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.List;
 
 public class EditBlock implements Listener {
-    // TODO Реализовать написание только какого-то по счёту блока
-    // TODO Реализовать написание только последнего добытого за какой-то тайм блока
     private final JavaPlugin plugin;
 
     public EditBlock(JavaPlugin p) {

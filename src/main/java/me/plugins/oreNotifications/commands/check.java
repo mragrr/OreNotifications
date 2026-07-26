@@ -34,22 +34,61 @@ public class check implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        int argsLen = args.length;
+        int argsLen = args.length; // Количество аргументов
+
+        // Обработка команд, которые имеют какие-либо аргументы
         if (argsLen != 0) {
+
+            // Логика /ore check
             if (args[0].equals("check")) {
-                if (!hasPerm(sender, "orenotifications.check")) return true;
+
+                // Логика /ore check без дальнейших аргументов
                 if (argsLen == 1) {
-                    if (!isPlayer(sender)) return true;
-                    String name = sender.getName();
-                    ConfigurationSection playerBlocksSection = plugin.getConfig().getConfigurationSection("players." + name);
+                    if (!isPlayer(sender)) return true; // проверка на отправителя игрока
+                    String name = sender.getName(); // никнейм игрока
+
+                    // Выбираем секцию игрока в конфиге
+                    ConfigurationSection playerBlocksSection = plugin.getConfig()
+                            .getConfigurationSection("players." + name);
+
+                    // Проверка существования секции и наличия элементов в ней
                     if (playerBlocksSection == null || playerBlocksSection.getKeys(false).isEmpty()) {
                         sender.sendMessage("Нет данных.");
                         return true;
                     }
+
+                    // Вывод игроку
                     sender.sendMessage("Ваша статистика по блокам: ");
+                    int i = 0;
                     for (String block : playerBlocksSection.getKeys(false)) {
                         int count = playerBlocksSection.getInt(block);
-                        sender.sendMessage(" ! " + block + ": добыто - " + count);
+                        i++;
+                        sender.sendMessage(" [№" + i + "] " + block + ": добыто - " + count);
+                    }
+                    return true;
+
+                // Логика /ore check {NAME}
+                } else if (argsLen == 2) {
+                    if (!hasPerm(sender, "orenotifications.check")) return true; // Проверка права использования
+                    String name = args[1]; // возможный никнейм игрока
+
+                    // Выбираем секцию игрока в конфиге
+                    ConfigurationSection playerBlocksSection = plugin.getConfig()
+                            .getConfigurationSection("players." + name);
+
+                    // Проверка существования секции и наличия элементов в ней
+                    if (playerBlocksSection == null || playerBlocksSection.getKeys(false).isEmpty()) {
+                        sender.sendMessage("Нет данных.");
+                        return true;
+                    }
+
+                    // Вывод игроку
+                    sender.sendMessage("Статистика по блокам для игрока " + name + ": ");
+                    int i = 0;
+                    for (String block : playerBlocksSection.getKeys(false)) {
+                        int count = playerBlocksSection.getInt(block);
+                        i++;
+                        sender.sendMessage(" [" + i + "] " + block + ": добыто - " + count);
                     }
                     return true;
                 }

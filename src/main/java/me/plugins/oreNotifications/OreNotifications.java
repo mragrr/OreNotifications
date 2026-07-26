@@ -14,6 +14,8 @@ public final class OreNotifications extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        // TODO Реализовать написание только последнего добытого за какой-то тайм блока
+        // TODO Добавление TabCompleter
         // TODO Добавление команды добавления считаемого блока
         // TODO Добавление команды проверки статистики игрока по блокам
         // TODO Добавление команды проверки статистики игрока по блоку
@@ -70,7 +72,8 @@ public final class OreNotifications extends JavaPlugin {
                 List.of("ANCIENT_DEBRIS")
         );
 
-        getCommand("ore").setExecutor(new check(this));
+        getCommand("ore").setExecutor(new check(this)); // Основная команда плагина
+
         Bukkit.getPluginManager().registerEvents(new EditBlock(plugin), this);
     }
 
